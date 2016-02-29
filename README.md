@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/daedafusion/events.svg?branch=master)](https://travis-ci.org/daedafusion/events)
 
+[![Coverage Status](https://coveralls.io/repos/github/daedafusion/events/badge.svg?branch=master)](https://coveralls.io/github/daedafusion/events?branch=master)
+
 # events
 
 Pluggable Events Framework using [Service Framework](https://github.com/daedafusion/service-framework)
