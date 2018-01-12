@@ -90,11 +90,11 @@ public class RabbitMQPublisherProvider extends AbstractProvider implements Event
         {
             if (event.getUser() != null)
             {
-                channel.basicPublish(Exchanges.USER_EXCHANGE, event.getTopic(), null, mapper.writeValueAsBytes(event));
+                channel.basicPublish(Exchanges.USER_EXCHANGE, event.getTopic(), null, mapper.writeValueAsBytes(event.getPayload()));
             }
             else
             {
-                channel.basicPublish(Exchanges.SYSTEM_EXCHANGE, event.getTopic(), null, mapper.writeValueAsBytes(event));
+                channel.basicPublish(Exchanges.SYSTEM_EXCHANGE, event.getTopic(), null, mapper.writeValueAsBytes(event.getPayload()));
             }
         }
         catch (IOException e)

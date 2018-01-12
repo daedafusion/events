@@ -7,5 +7,5 @@ import java.util.Set;
  */
 public interface EventHandler
 {
-    Set<String> getRouting();
+    Set<String> getTopics();
 }

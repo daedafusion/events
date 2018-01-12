@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by mphilpot on 7/6/14.
@@ -57,26 +58,23 @@ public class RabbitMQHandlerImpl extends AbstractService<EventHandlerProvider> i
             {
                 for(EventHandlerProvider ehp : getProviders())
                 {
-                    for(String routing : ehp.getRouting())
+                    try
                     {
-                        try
-                        {
-                            ProviderConsumer pc = new ProviderConsumer(channel, ehp);
+                        ProviderConsumer pc = new ProviderConsumer(channel, ehp);
 
-                            channel.exchangeDeclare(ehp.getExchange(), "topic");
-                            String queueName = channel.queueDeclare().getQueue();
-                            channel.queueBind(queueName, ehp.getExchange(), routing);
+                        channel.exchangeDeclare(ehp.getExchange().orElse("default"), "topic");
+                        String queueName = channel.queueDeclare().getQueue();
+                        channel.queueBind(queueName, ehp.getExchange().orElse("default"), ehp.getTopic());
 
-                            String consumerTag = UUID.randomUUID().toString();
+                        String consumerTag = UUID.randomUUID().toString();
 
-                            channel.basicConsume(queueName, false, consumerTag, pc);
+                        channel.basicConsume(queueName, false, consumerTag, pc);
 
-                            consumerTags.add(consumerTag);
-                        }
-                        catch (IOException e)
-                        {
-                            log.warn("Unable to bind queue to exchange", e);
-                        }
+                        consumerTags.add(consumerTag);
+                    }
+                    catch (IOException e)
+                    {
+                        log.warn("Unable to bind queue to exchange", e);
                     }
                 }
             }
@@ -114,14 +112,9 @@ public class RabbitMQHandlerImpl extends AbstractService<EventHandlerProvider> i
     }
 
     @Override
-    public Set<String> getRouting()
+    public Set<String> getTopics()
     {
-        Set<String> list = new HashSet<>();
-        for(EventHandlerProvider ehp : getProviders())
-        {
-            list.addAll(ehp.getRouting());
-        }
-        return list;
+        return getProviders().stream().map(EventHandlerProvider::getTopic).collect(Collectors.toSet());
     }
 
     @Override

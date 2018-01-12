@@ -2,6 +2,7 @@ package com.daedafusion.events.providers;
 
 import com.daedafusion.sf.Provider;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -9,8 +10,11 @@ import java.util.Set;
  */
 public interface EventHandlerProvider extends Provider
 {
-    String getExchange();
-    Set<String> getRouting();
+    // Optional for exchange level providers (rabbitmq)
+    Optional<String> getExchange();
+
+    // Topic or Routing
+    String getTopic();
 
     void handle(byte[] bytes);
 }

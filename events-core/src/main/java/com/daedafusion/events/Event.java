@@ -13,8 +13,7 @@ public class Event<T>
     private String topic;
     private String origin;
 
-    @JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, defaultImpl=Object.class)
-    private T payload;
+    private String payload;
 
     private String user;
 
@@ -65,12 +64,12 @@ public class Event<T>
         this.origin = origin;
     }
 
-    public T getPayload()
+    public String getPayload()
     {
         return payload;
     }
 
-    public void setPayload(T payload)
+    public void setPayload(String payload)
     {
         this.payload = payload;
     }
