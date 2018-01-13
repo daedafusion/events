@@ -6,12 +6,13 @@ import com.daedafusion.events.providers.EventHandlerProvider;
 import com.daedafusion.sf.AbstractService;
 import com.daedafusion.sf.LifecycleListener;
 import org.apache.log4j.Logger;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> implements EventHandler
@@ -19,7 +20,7 @@ public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> impl
     private static final Logger log = Logger.getLogger(RedisHandlerImpl.class);
 
     private JedisPool pool;
-    private Jedis jedis;
+    private ExecutorService es;
 
     public RedisHandlerImpl()
     {
@@ -29,22 +30,21 @@ public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> impl
             public void init()
             {
                 pool = new JedisPool(new JedisPoolConfig(), Configuration.getInstance().getString("redis.hostname", "localhost"));
+                es = Executors.newCachedThreadPool();
             }
 
             @Override
             public void start()
             {
-                jedis = pool.getResource();
-
                 getProviders().forEach(ehp -> {
-                    jedis.subscribe(new ProviderConsumer(ehp), ehp.getTopic());
+                    es.submit(() -> pool.getResource().subscribe(new ProviderConsumer(ehp), ehp.getTopic()));
                 });
             }
 
             @Override
             public void stop()
             {
-                jedis.close();
+                es.shutdown();
                 pool.close();
             }
         });
