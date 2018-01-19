@@ -7,7 +7,6 @@ import com.daedafusion.sf.AbstractService;
 import com.daedafusion.sf.LifecycleListener;
 import org.apache.log4j.Logger;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
 import java.util.Set;
@@ -29,7 +28,7 @@ public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> impl
             @Override
             public void init()
             {
-                pool = new JedisPool(new JedisPoolConfig(), Configuration.getInstance().getString("redis.hostname", "localhost"));
+                pool = new JedisPool(Configuration.getInstance().getString("redis.hostname", "localhost"));
                 es = Executors.newCachedThreadPool();
             }
 
