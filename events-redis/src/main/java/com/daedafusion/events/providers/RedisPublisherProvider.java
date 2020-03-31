@@ -7,7 +7,6 @@ import com.daedafusion.sf.LifecycleListener;
 import org.apache.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisPublisherProvider extends AbstractProvider implements EventPublisherProvider
 {
@@ -22,7 +21,7 @@ public class RedisPublisherProvider extends AbstractProvider implements EventPub
             @Override
             public void init()
             {
-                pool = new JedisPool(new JedisPoolConfig(), Configuration.getInstance().getString("redis.hostname", "localhost"));
+                pool = new JedisPool(Configuration.getInstance().getString("redis.hostname", "localhost"));
             }
 
             @Override
