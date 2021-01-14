@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> implements EventHandler
 {
-    private static final Logger log = Logger.getLogger(RedisHandlerImpl.class);
+    private static final Logger log = LogManager.getLogger(RedisHandlerImpl.class);
 
     private JedisPool pool;
     private ExecutorService es;

@@ -4,7 +4,7 @@
 
     <groupId>com.daedafusion</groupId>
     <artifactId>events-parent</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>DaedaFusion Cache Framework</name>
@@ -60,12 +60,12 @@
             <dependency>
                 <groupId>com.daedafusion</groupId>
                 <artifactId>service-framework-core</artifactId>
-                <version>1.2-SNAPSHOT</version>
+                <version>1.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.daedafusion</groupId>
                 <artifactId>configuration-core</artifactId>
-                <version>1.1</version>
+                <version>1.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -93,23 +93,23 @@
                 <version>2.9.0</version>
             </dependency>
 
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-            </dependency>
+          <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.0</version>
+          </dependency>
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+          </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -184,7 +184,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.5.201505241946</version>
+                <version>0.8.6</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

@@ -4,13 +4,14 @@ import com.daedafusion.configuration.Configuration;
 import com.daedafusion.events.Event;
 import com.daedafusion.sf.AbstractProvider;
 import com.daedafusion.sf.LifecycleListener;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class RedisPublisherProvider extends AbstractProvider implements EventPublisherProvider
 {
-    private static final Logger log = Logger.getLogger(RedisPublisherProvider.class);
+    private static final Logger log = LogManager.getLogger(RedisPublisherProvider.class);
 
     private JedisPool pool;
 
