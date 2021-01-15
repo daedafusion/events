@@ -5,9 +5,10 @@ import com.daedafusion.events.EventHandler;
 import com.daedafusion.events.providers.EventHandlerProvider;
 import com.daedafusion.sf.AbstractService;
 import com.daedafusion.sf.LifecycleListener;
-import org.apache.log4j.Logger;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
