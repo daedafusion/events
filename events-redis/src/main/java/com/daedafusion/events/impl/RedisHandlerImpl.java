@@ -5,9 +5,10 @@ import com.daedafusion.events.EventHandler;
 import com.daedafusion.events.providers.EventHandlerProvider;
 import com.daedafusion.sf.AbstractService;
 import com.daedafusion.sf.LifecycleListener;
-import org.apache.log4j.Logger;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class RedisHandlerImpl extends AbstractService<EventHandlerProvider> implements EventHandler
 {
-    private static final Logger log = Logger.getLogger(RedisHandlerImpl.class);
+    private static final Logger log = LogManager.getLogger(RedisHandlerImpl.class);
 
     private JedisPool pool;
     private ExecutorService es;
